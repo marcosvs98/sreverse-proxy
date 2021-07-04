@@ -6,11 +6,10 @@ log = logging.getLogger(__name__)
 
 
 def main():
-	logging.basicConfig(**settings.LOGGING_CONFIG['console_color_debug'])
 	try:
 		server_address = ('0.0.0.0', 8008)
 		with ProxyHTTPServer(server_address, SimpleProxyHTTPRequestHandler) as httpr:
-			log.warning(f'access server on.. http(s)://{server_address[0]}:{server_address[1]}/')
+			log.warning(f'Access server on.. http(s)://{server_address[0]}:{server_address[1]}/')
 			httpr.serve_forever()
 	except KeyboardInterrupt:
 		log.warning('CTRL+C Detected!')
