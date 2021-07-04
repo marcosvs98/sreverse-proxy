@@ -4,6 +4,7 @@ from ReverseProxyServer import SimpleProxyHTTPRequestHandler
 
 log = logging.getLogger(__name__)
 
+
 def main():
 	logging.basicConfig(**settings.LOGGING_CONFIG['console_color_debug'])
 	try:
@@ -13,6 +14,7 @@ def main():
 			httpr.serve_forever()
 	except KeyboardInterrupt:
 		log.warning('CTRL+C Detected!')
+
 
 if __name__ == '__main__':
 	main()

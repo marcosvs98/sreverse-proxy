@@ -79,9 +79,8 @@ class SimpleProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 				self.send_header(*header)
 			self.end_headers()
 			self.wfile.write(foward_response.data)
-
-		except urllib3.exceptions.LocationValueError:
-			pass
+		except urllib3.exceptions.LocationValueError as e:
+			log.error(e)
 		except ConnectionError as e:
 			log.error(f'Connection closed unexpectedly: {repr(e)}')
 		except IOError as e:
