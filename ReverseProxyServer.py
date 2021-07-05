@@ -30,7 +30,9 @@ class ProxyHTTPServer(ThreadingMixIn, HTTPServer):
 
 
 class SimpleProxyHTTPRequestHandler(BaseHTTPRequestHandler):
-
+	"""
+	Handler responsible for implementing reverse proxy features.
+	"""
 	url = None
 
 	def do_GET(self):
