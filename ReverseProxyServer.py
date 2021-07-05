@@ -60,7 +60,6 @@ class SimpleProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 	def _request(self):
 		try:
 			http_client = urllib3.PoolManager()
-
 			parsed = urlparse(self.path)
 			qs = (parse_qs(unquote(parsed.query))).get("url")
 			if qs:
