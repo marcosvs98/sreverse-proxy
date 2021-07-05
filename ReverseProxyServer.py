@@ -31,6 +31,8 @@ class ProxyHTTPServer(ThreadingMixIn, HTTPServer):
 
 class SimpleProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 
+	url = None
+
 	def do_GET(self):
 		self._request()
 
@@ -61,10 +63,11 @@ class SimpleProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 		try:
 			http_client = urllib3.PoolManager()
 			parsed = urlparse(self.path)
-			qs = (parse_qs(unquote(parsed.query))).get("url")
-			if qs:
-				self.url = qs[0]
-			
+			qs = (parse_qs(unquote(parsed.query)))
+			if qs.get('url'):
+				SimpleProxyHTTPRequestHandler.url = qs['url'][0]
+			else:
+				SimpleProxyHTTPRequestHandler.url = urljoin(SimpleProxyHTTPRequestHandler.url, self.path)
 			proxy_request = ProxyRequest(
 				source_address=self.client_address[0],
 				http_version=self.request_version,
@@ -84,7 +87,7 @@ class SimpleProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 				self.send_header(*header)
 			self.end_headers()
 			self.wfile.write(foward_response.data)
-		except urllib3.exceptions.LocationValueError as e:
+		except (urllib3.exceptions.LocationValueError, AttributeError) as e:
 			log.error(e)
 		except ConnectionError as e:
 			log.error(f'Connection closed unexpectedly: {repr(e)}')

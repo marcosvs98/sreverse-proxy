@@ -13,7 +13,6 @@ def main():
 	except KeyboardInterrupt:
 		log.warning('CTRL+C Detected!')
 
-
 if __name__ == '__main__':
 	main()
 
