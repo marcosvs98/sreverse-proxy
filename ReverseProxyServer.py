@@ -3,6 +3,8 @@ import logging
 from types import SimpleNamespace
 from dataclasses import dataclass
 from urllib.parse import urlparse, urljoin
+from urllib.parse import urlencode, urlunparse, parse_qs
+from urllib.parse import quote, unquote, quote_plus, urlparse
 from http.server import HTTPServer
 from http.server import BaseHTTPRequestHandler
 from socketserver import ForkingMixIn, ThreadingMixIn
@@ -20,7 +22,6 @@ class ProxyRequest:
 	headers        : list
 	postdata       : bytes = None
 	http_version   : str = 'HTTP/1.0'
-
 
 
 class ProxyHTTPServer(ThreadingMixIn, HTTPServer):
@@ -59,7 +60,12 @@ class SimpleProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 	def _request(self):
 		try:
 			http_client = urllib3.PoolManager()
-			self.url = urlparse(self.path.replace("/?url=", "")).geturl()
+
+			parsed = urlparse(self.path)
+			qs = (parse_qs(unquote(parsed.query))).get("url")
+			if qs:
+				self.url = qs[0]
+			
 			proxy_request = ProxyRequest(
 				source_address=self.client_address[0],
 				http_version=self.request_version,

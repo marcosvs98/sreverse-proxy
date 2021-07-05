@@ -4,7 +4,6 @@ from ReverseProxyServer import SimpleProxyHTTPRequestHandler
 
 log = logging.getLogger(__name__)
 
-
 def main():
 	try:
 		server_address = ('0.0.0.0', 8008)
