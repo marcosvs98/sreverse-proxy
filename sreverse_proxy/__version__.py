@@ -1,0 +1,9 @@
+__title__ = 'Simple-Reverse-Proxy'
+__description__ = 'A simple reverse proxy implementation using python simplicity.'
+__url__ = 'https://github.com/MarcosVs98/sreverse-proxy'
+__version__ = '1.0.0'
+__build__ = 0x022300
+__author__ = 'Marcos Silveira'
+__author_email__ = 'marcosvs@protonmail.com'
+__license__ = 'MIT License'
+__copyright__ = 'Copyright (c) 2021 MarcosVs98'

@@ -1,3 +1,3 @@
-# Simple-Reverse-Proxy
+# Reverse-Proxy
 
-![Simple-Reverse-Proxy](https://github.com/MarcosVs98/sreverse-Proxy/blob/main/img/example.png)
+![Reverse-Proxy Block Diagram](https://github.com/MarcosVs98/sreverse-proxy/blob/main/img/example.png)
